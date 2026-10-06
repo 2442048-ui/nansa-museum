@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>난세 박물관</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#111;color:#f5efe3;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif}header{text-align:center;padding:34px 18px;border-bottom:1px solid #39342e}h1{font-size:38px;margin:0 0 8px}.sub{color:#c9c0b4}.wrap{max-width:980px;margin:auto;padding:20px}.rooms{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.room{border:1px solid #403a33;border-radius:14px;background:#1c1a17;color:#f5efe3;padding:18px;text-align:left;font:inherit;cursor:pointer}.room b{color:#c9a35b}.panel{display:none;background:#f5efe3;color:#27231e;border-radius:18px;padding:22px;margin-top:20px}.panel.on{display:block}.artifact{width:100%;max-height:430px;object-fit:contain;background:#ddd7cc;border-radius:12px;display:block;margin:15px 0;cursor:zoom-in}.hint{background:#ebe1d1;border-left:4px solid #c9a35b;padding:14px;margin:16px 0}.choice{display:block;width:100%;margin:10px 0;padding:14px;border-radius:10px;background:#fff;color:#27231e;border:1px solid #cfc4b4;font:inherit;text-align:left;cursor:pointer}.choice.correct{outline:3px solid #69805f}.meta,.source{color:#746b60;font-size:14px}.back{background:#27231e;color:#fff}.score{position:sticky;top:0;text-align:right;font-weight:800;color:#c9a35b;padding:8px 0}.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.lightbox.on{display:flex}.lightbox img{max-width:95vw;max-height:90vh;object-fit:contain}.close{position:absolute;top:18px;right:18px;background:#fff;color:#111;border:0;border-radius:50%;width:42px;height:42px;font-size:22px}@media(max-width:600px){.rooms{grid-template-columns:1fr}h1{font-size:30px}.panel{padding:16px}}
+*{box-sizing:border-box}body{margin:0;background:#111;color:#f5efe3;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif}header{text-align:center;padding:34px 18px;border-bottom:1px solid #39342e}h1{font-size:38px;margin:0 0 8px}.sub{color:#c9c0b4}.wrap{max-width:980px;margin:auto;padding:20px}.rooms{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.room{position:relative;transition:.2s}.room:hover{transform:translateY(-2px);border-color:#c9a35b}.room.doneRoom{border-color:#69805f}.room .status{float:right;font-size:12px;color:#8c8378}.room .status.done{color:#69805f}.room .status.now{color:#c9a35b}.room{border:1px solid #403a33;border-radius:14px;background:#1c1a17;color:#f5efe3;padding:18px;text-align:left;font:inherit;cursor:pointer}.room b{color:#c9a35b}.panel{display:none;background:#f5efe3;color:#27231e;border-radius:18px;padding:22px;margin-top:20px}.panel.on{display:block}.artifact{width:100%;max-height:430px;object-fit:contain;background:#ddd7cc;border-radius:12px;display:block;margin:15px 0;cursor:zoom-in}.hint{background:#ebe1d1;border-left:4px solid #c9a35b;padding:14px;margin:16px 0}.choice{display:block;width:100%;margin:10px 0;padding:14px;border-radius:10px;background:#fff;color:#27231e;border:1px solid #cfc4b4;font:inherit;text-align:left;cursor:pointer}.choice.correct{outline:3px solid #69805f;background:#eef4ea}.choice.wrong{outline:3px solid #a56b62;background:#f8ecea}.choice:disabled{cursor:default;opacity:.95}.observation{background:#f0ebe2;border:1px solid #d8cbbb;border-radius:12px;padding:16px;margin:18px 0}.observation label{display:block;font-weight:800;margin-bottom:8px}.observation textarea{width:100%;min-height:90px;border:1px solid #cfc4b4;border-radius:9px;padding:10px;font:inherit;resize:vertical;background:#fff}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.next{background:#c9a35b!important;color:#27231e!important;border-color:#c9a35b!important;font-weight:800}.progress{height:8px;background:#332f2a;border-radius:99px;overflow:hidden;margin:10px 0 20px}.progress span{display:block;height:100%;width:0;background:#c9a35b;transition:.3s}.completion{display:none;margin-top:20px;padding:24px;border:1px solid #c9a35b;border-radius:16px;background:#f5efe3;color:#27231e;text-align:center}.completion.on{display:block}.badge{font-size:42px;margin:6px}.meta,.source{color:#746b60;font-size:14px}.back{background:#27231e;color:#fff}.score{position:sticky;top:0;text-align:right;font-weight:800;color:#c9a35b;padding:8px 0}.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.lightbox.on{display:flex}.lightbox img{max-width:95vw;max-height:90vh;object-fit:contain}.close{position:absolute;top:18px;right:18px;background:#fff;color:#111;border:0;border-radius:50%;width:42px;height:42px;font-size:22px}@media(max-width:600px){.rooms{grid-template-columns:1fr}h1{font-size:30px}.panel{padding:16px}}
 </style></head>
 <body>
 <header><h1>난세 박물관</h1><div class="sub">유물을 관찰하고 중국 고대사의 변화를 추론하는 인터랙티브 역사 미니게임</div></header>
-<main class="wrap"><div class="score">발굴 점수 <span id="score">0</span>점</div><h2>전시실 선택</h2><div class="rooms" id="rooms"></div><section id="panel" class="panel"><div id="content"></div></section></main>
+<main class="wrap"><div class="score">발굴 점수 <span id="score">0</span>점 · 조사 완료 <span id="progressText">0 / 7</span></div><div class="progress"><span id="progressBar"></span></div><h2>전시실 선택</h2><p class="meta">유물을 먼저 관찰한 뒤, 사료 힌트와 강의 내용을 연결해 조사 질문을 해결해 보세요.</p><div class="rooms" id="rooms"></div><section id="panel" class="panel"><div id="content"></div></section><section id="completion" class="completion"><div class="badge">🏛️</div><h2>난세 박물관 조사 완료</h2><p>7개 전시실의 유물을 조사하고 중국 고대사의 변화 과정을 연결했습니다.</p><p><strong>최종 발굴 점수 <span id="finalScore">0</span>점</strong></p><p class="meta">관찰 → 사료 힌트 → 역사적 질문 → 강의 개념 연결</p></section></main>
 <div id="lightbox" class="lightbox"><button class="close" id="close">×</button><img id="zoom" alt="유물 확대 이미지"></div>
 <script>
 const D=[
@@ -26,8 +26,56 @@ const OPTIONS=[
 ["A","혼란과 경쟁 속에서 사회 운영의 방법을 찾으려는 요구와 각국의 인재 수요","B","상나라의 갑골 점복을 폐지하려는 요구","C","서주의 적장자 상속을 강화하려는 요구","D","춘추시대 회맹을 금지하려는 요구"]
 ];
 let score=0,done=new Set();const rooms=document.getElementById("rooms"),panel=document.getElementById("panel"),content=document.getElementById("content"),scoreEl=document.getElementById("score"),light=document.getElementById("lightbox"),zoom=document.getElementById("zoom");
-D.forEach((d,i)=>{const b=document.createElement("button");b.className="room";b.innerHTML="<b>ROOM "+d.no+"</b><br><strong>"+d.room+"</strong><br>"+d.name+" · "+d.era;b.addEventListener("click",()=>openRoom(i));rooms.appendChild(b)});
-function openRoom(i){const d=D[i];panel.className="panel on";content.innerHTML="";const meta=document.createElement("div");meta.className="meta";meta.textContent="ROOM "+d.no+" · "+d.era;const h=document.createElement("h2");h.textContent=d.room;const n=document.createElement("h3");n.textContent="🏺 "+d.name;const img=document.createElement("img");img.className="artifact";img.alt=d.name+" 실제 유물 사진";img.src=d.img;img.addEventListener("click",()=>{if(img.naturalWidth){zoom.src=d.img;light.className="lightbox on"}else{window.open(d.url,"_blank")}});img.onerror=()=>{img.removeAttribute("src");img.alt=d.name+" 사진을 불러오지 못했습니다. 아래 원자료 확인을 이용하세요.";img.style.padding="70px 20px";img.style.cursor="default"};const hint=document.createElement("div");hint.className="hint";hint.innerHTML="<strong>HISTORICAL HINT · 사료 힌트</strong><br>"+d.hint;const q=document.createElement("p");q.innerHTML="<strong>발굴 질문</strong><br>"+d.q;const box=document.createElement("div");OPTIONS[i].forEach((text,j)=>{if(j%2===0){const b=document.createElement("button");b.className="choice";b.textContent=OPTIONS[i][j]+"  "+OPTIONS[i][j+1];b.addEventListener("click",()=>answer(b,i,OPTIONS[i][j]));box.appendChild(b)}});const res=document.createElement("p");res.id="res";const src=document.createElement("p");src.className="source";src.innerHTML="소장·자료 출처: <strong>"+d.source+"</strong> · <a href='"+d.url+"' target='_blank' rel='noopener'>원자료 확인</a>";const back=document.createElement("button");back.className="choice";back.textContent="전시실 목록으로";back.addEventListener("click",()=>panel.className="panel");content.append(meta,h,n,img,hint,q,box,res,src,back);panel.scrollIntoView({behavior:"smooth"})}
-function answer(btn,i,val){const res=document.getElementById("res");if(done.has(i)){res.textContent="이미 조사 완료한 전시실입니다.";return}if(val!=="A"){btn.classList.add("wrong");res.innerHTML="다시 생각해 보세요. 사료 힌트를 다시 읽고, 유물이 직접 보여주는 내용과 강의 개념을 구분해 보세요.";return}done.add(i);score+=10;scoreEl.textContent=score;btn.classList.add("correct");res.innerHTML="✓ 정답! +10점<br>"+D[i].a}
+D.forEach((d,i)=>{const b=document.createElement("button");b.className="room";b.dataset.index=i;b.innerHTML="<span class=\"status\">미조사</span><b>ROOM "+d.no+"</b><br><strong>"+d.room+"</strong><br>"+d.name+" · "+d.era;b.addEventListener("click",()=>openRoom(i));rooms.appendChild(b)});
+function openRoom(i){
+const d=D[i];panel.className="panel on";content.innerHTML="";
+const meta=document.createElement("div");meta.className="meta";meta.textContent="ROOM "+d.no+" · "+d.era;
+const h=document.createElement("h2");h.textContent=d.room;
+const n=document.createElement("h3");n.textContent="🏺 "+d.name;
+const intro=document.createElement("p");intro.textContent="먼저 유물을 관찰하고, 눈에 보이는 사실과 역사적 해석을 구분해 보세요.";
+const img=document.createElement("img");img.className="artifact";img.alt=d.name+" 실제 유물 사진";img.src=d.img;
+img.addEventListener("click",()=>{if(img.naturalWidth){zoom.src=d.img;light.className="lightbox on"}else{window.open(d.url,"_blank")}});
+img.onerror=()=>{img.removeAttribute("src");img.alt=d.name+" 사진을 불러오지 못했습니다. 아래 원자료 확인을 이용하세요.";img.style.padding="70px 20px";img.style.cursor="default";img.parentElement};
+const obs=document.createElement("div");obs.className="observation";
+obs.innerHTML="<label>🔎 유물 관찰 기록</label><div class='meta'>사진에서 눈에 띄는 형태·문자·재질 등을 한두 문장으로 기록해 보세요. (선택)</div>";
+const ta=document.createElement("textarea");ta.placeholder="예: 청동으로 만들어졌으며 표면에 문자가 보인다…";obs.appendChild(ta);
+const hint=document.createElement("div");hint.className="hint";hint.innerHTML="<strong>HISTORICAL HINT · 사료 힌트</strong><br>"+d.hint;
+const q=document.createElement("p");q.innerHTML="<strong>발굴 질문</strong><br>"+d.q;
+const box=document.createElement("div");
+OPTIONS[i].forEach((text,j)=>{if(j%2===0){const b=document.createElement("button");b.className="choice";b.textContent=OPTIONS[i][j]+"  "+OPTIONS[i][j+1];b.addEventListener("click",()=>answer(b,i,OPTIONS[i][j],box));box.appendChild(b)}});
+const res=document.createElement("p");res.id="res";
+const next=document.createElement("button");next.className="choice next";next.style.display="none";next.textContent=i<6?"다음 전시실 조사하기 →":"🏛️ 전체 조사 완료하기";
+next.addEventListener("click",()=>{panel.className="panel";if(i<6){openRoom(i+1)}else{showCompletion()}});
+const src=document.createElement("p");src.className="source";src.innerHTML="소장·자료 출처: <strong>"+d.source+"</strong> · <a href='"+d.url+"' target='_blank' rel='noopener'>원자료 확인</a>";
+const back=document.createElement("button");back.className="choice";back.textContent="전시실 목록으로";back.addEventListener("click",()=>panel.className="panel");
+content.append(meta,h,n,intro,img,obs,hint,q,box,res,next,src,back);panel.scrollIntoView({behavior:"smooth"})
+}
+function answer(btn,i,val,box){
+const res=document.getElementById("res");
+if(done.has(i)){res.textContent="이미 조사 완료한 전시실입니다.";return}
+if(val!=="A"){
+btn.classList.add("wrong");
+res.innerHTML="✕ 아직 정답이 아닙니다.<br>유물이 직접 보여주는 내용과 강의에서 배운 개념을 구분해 다시 생각해 보세요.";
+return
+}
+done.add(i);score+=10;scoreEl.textContent=score;
+btn.classList.add("correct");
+[...box.querySelectorAll("button")].forEach(x=>x.disabled=true);
+res.innerHTML="<strong>✓ 조사 성공 · +10점</strong><br>"+D[i].a;
+document.querySelectorAll(".room")[i].classList.add("doneRoom");
+document.querySelectorAll(".room")[i].querySelector(".status").textContent="✓ 조사 완료";
+document.querySelectorAll(".room")[i].querySelector(".status").classList.add("done");
+updateProgress();
+const next=document.querySelector(".next");if(next)next.style.display="block";
+}
+function updateProgress(){
+const n=done.size;document.getElementById("progressText").textContent=n+" / 7";
+document.getElementById("progressBar").style.width=(n/7*100)+"%";
+}
+function showCompletion(){
+document.getElementById("finalScore").textContent=score;
+document.getElementById("completion").className="completion on";
+document.getElementById("completion").scrollIntoView({behavior:"smooth"});
+}
 document.getElementById("close").addEventListener("click",()=>light.className="lightbox");light.addEventListener("click",e=>{if(e.target===light)light.className="lightbox"});
 </script></body></html>
